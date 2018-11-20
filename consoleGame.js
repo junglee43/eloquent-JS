@@ -33,26 +33,47 @@ var Question = function(question, answersArray, correctAnswer) {
             console.log(i + ' : ' + answersArray[i]);
         }
     };
-    this.checkAnswer = function() {
-
+    this.promptPlayer = function() {
+        //var answer;
+        return prompt('What\'s the answer smartass? Or type "exit" to quit.');
+        //return answer;
     };
-    this.generateNumber = function() {
-        return Math.round(Math.random);
+    this.checkAnswer = function(answer) {
+        //var score;
+        if(answer == correctAnswer) {
+            //score += 1;
+            console.log('That\'s the right answer! Score : ' /* + score */);
+            //return score;
+        } else {
+            console.log('Try again');
+            //return score;
+        }
+    };
+    this.randomQ = function randomFromArray(array) {
+        var i = Math.floor(Math.random() * array.length);
+        return i;
     };
 };
 
-var question1 = new Question('What\'s the best thing in the world?', ['Dumpling soup', 'Donald Duck', 'Revenge', 'Blue cheese'], 0);
+function gameInit() {
+    var question1 = new Question('What\'s the best thing in the world?', ['Dumpling soup', 'Donald Duck', 'Revenge', 'Blue cheese'], 0);
+    var question2 = new Question('What\'s the best way to get rid of a hangover?', ['Dumpling soup', 'Hair of the dog', 'Doing it again', 'Pray to Jesus for forgiveness'], 1);
+    var question3 = new Question('Programming is...', ['Hard', 'Fun', 'Easy', 'Rewarding', 'For losers', 3]);
+    var quiz = [question1, question2, question3];
+    var thing = (quiz[0]);
+    thing.printQuestion();
+    //thing.promptPlayer();
+    thing.checkAnswer(thing.promptPlayer());
+};
 
-var question2 = new Question('What\'s the best way to get rid of a hangover?', ['Dumpling soup', 'Hair of the dog', 'Doing it again', 'Pray to Jesus for forgiveness'], 1);
 
-var question3 = new Question('Programming is...', ['Hard', 'Fun', 'Easy', 'Rewarding', 'For losers', 3]);
+//function gamePlay() {
+  // continuePlay = 1;
+   //while(continuePlay === true) {
+   //}
+//};
 
-quiz = [question1, question2, question3];
-console.log(quiz);
-question1.printQuestion();
-
-prompt()
-
+gameInit();
 
 
 
