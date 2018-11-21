@@ -34,60 +34,69 @@ var Question = function(question, answersArray, correctAnswer) {
         }
     };
     this.promptPlayer = function() {
-        //var answer;
-        return prompt('What\'s the answer smartass? Or type "exit" to quit.');
-        //return answer;
+        var answer = prompt('What\'s the answer smartass? Or type "exit" to quit.');
+        return answer;
     };
     this.checkAnswer = function(answer) {
         //var score;
         if(answer == correctAnswer) {
             //score += 1;
-            console.log('That\'s the right answer! Score : ' /* + score */);
+            console.log('That\'s the right answer!');
             //return score;
         } else {
             console.log('Try again');
             //return score;
         }
     };
-    this.randomQ = function randomFromArray(array) {
-        var i = Math.floor(Math.random() * array.length);
-        return i;
-    };
+    //this.randomQ = function randomFromArray(array) {
+        //var i = Math.floor(Math.random() * array.length);
+        //return i;
+    //};
 };
 
 function gameInit() {
     var question1 = new Question('What\'s the best thing in the world?', ['Dumpling soup', 'Donald Duck', 'Revenge', 'Blue cheese'], 0);
     var question2 = new Question('What\'s the best way to get rid of a hangover?', ['Dumpling soup', 'Hair of the dog', 'Doing it again', 'Pray to Jesus for forgiveness'], 1);
-    var question3 = new Question('Programming is...', ['Hard', 'Fun', 'Easy', 'Rewarding', 'For losers', 3]);
-    var quiz = [question1, question2, question3];
-    var thing = (quiz[0]);
-    thing.printQuestion();
+    var question3 = new Question('Programming is...', ['Hard', 'Fun', 'Easy', 'Rewarding', 'For losers'], 3);
+    var quizArray = [question1, question2, question3];
+    // Testing:
+    //var thing = (quiz[0]);
+    //thing.printQuestion();
     //thing.promptPlayer();
-    thing.checkAnswer(thing.promptPlayer());
+    //thing.checkAnswer(thing.promptPlayer());
+
+    function randQuestion(array) {
+        var i = Math.floor(Math.random() * array.length);
+        var randQ  = array[i];
+        return randQ;
+    };
+
+    // Testing:
+    //console.log(randQuestion(quizArray));
+    // randQ.printQuestion();
+    // randQ.promptPlayer();
+    // randQ.checkAnswer(randQ.promptPlayer());
+
+    var x = randQuestion(quizArray);
+    x.printQuestion();
+    var answer;
+    x.checkAnswer(answer = x.promptPlayer());
+    console.log(answer);
+
+    function continueGame(answer) {
+        while(answer !== 'exit') {
+            var x = randQuestion(quizArray);
+            x.printQuestion();
+            //var answer;
+            x.checkAnswer(answer = x.promptPlayer());
+            console.log(answer);
+        }
+    };
+
+    continueGame(answer);
 };
 
-
-//function gamePlay() {
-  // continuePlay = 1;
-   //while(continuePlay === true) {
-   //}
-//};
-
 gameInit();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////
 /*
@@ -98,6 +107,5 @@ gameInit();
   9. Be careful: after Task 8, the game literally never ends. So include the option to quit the game if the user writes 'exit' instead of the answer. In this case, DON'T call the function from task 8.
 
   10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
-
   11. Display the score in the console. Use yet another method for this.
 */
