@@ -77,23 +77,37 @@ function gameInit() {
     // randQ.promptPlayer();
     // randQ.checkAnswer(randQ.promptPlayer());
 
-    var x = randQuestion(quizArray);
-    x.printQuestion();
-    var answer;
-    x.checkAnswer(answer = x.promptPlayer());
-    console.log(answer);
+    // var x = randQuestion(quizArray);
+    // x.printQuestion();
+    // var answer, score;
+    // x.checkAnswer(answer = x.promptPlayer());
+    // console.log(answer);
 
-    function continueGame(answer) {
+
+    function continueGame() {
+        var answer;
+        var score;
         while(answer !== 'exit') {
             var x = randQuestion(quizArray);
             x.printQuestion();
-            //var answer;
             x.checkAnswer(answer = x.promptPlayer());
-            console.log(answer);
+            console.log(typeof(answer));
+            console.log(typeof(x.correctAnswer));
+            keepScore(answer);
+        }
+
+        function keepScore(answer) {
+            if(answer == Number(x.correctAnswer)) {
+                score += 1;
+                console.log('You\'re score is now: ' + score);
+            } else {
+                score;
+                console.log('You\'re score is still: ' + score);
+            }
+            return score;
         }
     };
-
-    continueGame(answer);
+    continueGame();
 };
 
 gameInit();
