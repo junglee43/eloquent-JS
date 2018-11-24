@@ -86,7 +86,7 @@ function gameInit() {
 
     function continueGame() {
         var answer;
-        var score;
+        var score = 0;
         while(answer !== 'exit') {
             var x = randQuestion(quizArray);
             x.printQuestion();
