@@ -23,35 +23,30 @@ c) correct answer (I would use a number for this)
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
 
-var Question = function(question, answersArray, correctAnswer) {
+function Question(question, answersArray, correctAnswer) {
     this.question = question;
     this.answersArray = answersArray;
     this.correctAnswer = correctAnswer;
-    this.printQuestion = function(){
-        console.log(question);
-        for(var i = 0; i < answersArray.length; i++) {
-            console.log(i + ' : ' + answersArray[i]);
-        }
-    };
-    this.promptPlayer = function() {
-        var answer = prompt('What\'s the answer smartass? Or type "exit" to quit.');
-        return answer;
-    };
-    this.checkAnswer = function(answer) {
-        //var score;
-        if(answer == correctAnswer) {
-            //score += 1;
-            console.log('That\'s the right answer!');
-            //return score;
-        } else {
-            console.log('Try again');
-            //return score;
-        }
-    };
-    //this.randomQ = function randomFromArray(array) {
-        //var i = Math.floor(Math.random() * array.length);
-        //return i;
-    //};
+};
+
+Question.prototype.printQuestion = function() {
+    console.log(this.question);
+    for(var i = 0; i < this.answersArray.length; i++) {
+        console.log(i + ' : ' + this.answersArray[i]);
+    }
+};
+
+Question.prototype.promptPlayer = function() {
+    var answer = prompt('What\'s the answer smart ass? Or type "exit" to quit.');
+    return answer;
+};
+
+Question.prototype.checkAnswer = function(answer) {
+    if(answer == this.correctAnswer) {
+        console.log('That\'s the right answer!');
+    } else {
+        console.log('Wrong answer, try again dummy.');
+    }
 };
 
 function gameInit() {
