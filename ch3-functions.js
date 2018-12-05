@@ -82,3 +82,40 @@ takes a second argument that indicates the character that is to be counted
 (rather than counting only uppercase “B” characters). Rewrite countBs to make
 use of this new function.
 */
+
+function countB(str) {
+    let counter = 0;
+    for(i = 0; i < str.length; i++) {
+        if(str[i] == 'B'){
+            counter += 1;
+        }
+    }  return counter;
+}
+
+function countChar(str, char) {
+    let counter = 0;
+    for(i = 0; i < str.length; i++) {
+        if(str[i] == char){
+            counter += 1;
+        }
+    }  return counter;
+}
+
+function countB(str) {
+    return countChar(str, 'B');
+}
+
+// Solution
+function countChar(string, ch) {
+    let counted = 0;
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] == ch) {
+            counted += 1;
+        }
+    }
+    return counted;
+}
+
+function countBs(string) {
+    return countChar(string, "B");
+}
