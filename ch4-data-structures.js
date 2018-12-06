@@ -153,3 +153,107 @@ for(let event of journalEvents(JOURNAL)) {
         console.log(event + ':', correlation);
     }
 }
+
+// Destructuring
+// Alternate method to have bindings for the elements of array rather than whole array or table
+function phi([n00, n01, n10, n11]) {
+    return (n11 * n00 - n10 * n01) /
+        Math.sqrt((n10 + n11) * (n00 + n01) *
+                  (n01 + n11) * (n00 + n10));
+}
+
+//Write a range function that takes two arguments, start and end, and returns an array containing all the numbers from start up to (and including) end.
+function myRange(start, end) {
+    let array = [], num = start;
+    for(num; num <= end; num++) {
+        array.push(num);
+    }
+    return array;
+}
+
+//Next, write a sum function that takes an array of numbers and returns the sum of these numbers. Run the example program and see whether it does indeed return 55.
+function mySum(array) {
+    let sum = 0;
+    for(let num of array){
+        sum += num;
+    }
+    return sum;
+}
+
+/* The sum of a range
+As a bonus assignment, modify your range function to take an optional third argument that indicates the “step” value used when building the array. If no step is given, the elements go up by increments of one, corresponding to the old behavior. The function call range(1, 10, 2) should return [1, 3, 5, 7, 9]. Make sure it also works with negative step values so that range(5, 2, -1) produces [5, 4, 3, 2].
+*/
+
+function myStepRange(start, end, step = 1) {
+    let array = [];
+    if(start < end) {
+        for(start; start <= end; start += step) {
+            array.push(start);
+        }
+    } else if(start > end && step < 0) {
+        for(start; start >= end; start += step ) {
+            array.push(start);
+        }
+    } else {
+        console.log('ERROR');
+    }
+    return array;
+}
+
+// Solution
+function range(start, end, step = start < end ? 1 : -1) {
+    let array = [];
+
+    if (step > 0) {
+        for (let i = start; i <= end; i += step) array.push(i);
+    } else {
+        for (let i = start; i >= end; i += step) array.push(i);
+    }
+    return array;
+}
+
+function sum(array) {
+    let total = 0;
+    for (let value of array) {
+        total += value;
+    }
+    return total;
+}
+
+console.log(range(1, 10))
+// → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(range(5, 2, -1));
+// → [5, 4, 3, 2]
+console.log(sum(range(1, 10)));
+// → 55
+
+/*  Reversing an array
+Arrays have a reverse method that changes the array by inverting the order in which its elements appear. For this exercise, write two functions, reverseArray and reverseArrayInPlace. The first, reverseArray, takes an array as argument and produces a new array that has the same elements in the inverse order. The second, reverseArrayInPlace, does what the reverse method does: it modifies the array given as argument by reversing its elements. Neither may use the standard reverse method.
+    Thinking back to the notes about side effects and pure functions in the previous chapter, which variant do you expect to be useful in more situations? Which one runs faster?
+*/
+
+function reverseArray(array) {
+    newArray = [];
+    for(i = array.length - 1; i >= 0; i--) {
+        newArray.push(array[i]);
+    }
+    return newArray;
+}
+
+function reverseArrayInPlace(array) {
+    for(let element of array) {
+        array.push(array.shift());
+    }
+    return array;
+}
+
+function reverseArrayInPlace(array) {
+    for(let element of array) {
+        let first;
+        first = array.shift();
+        console.log(first);
+        array.push(first);
+        console.log(array);
+    }
+    return array;
+}
