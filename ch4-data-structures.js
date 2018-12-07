@@ -240,20 +240,49 @@ function reverseArray(array) {
     return newArray;
 }
 
-function reverseArrayInPlace(array) {
-    for(let element of array) {
-        array.push(array.shift());
-    }
-    return array;
-}
+// function reverseArrayInPlace(array) {
+//     for(let element of array) {
+//         array.push(array.shift());
+//     }
+//     return array;
+// }
+
+// function reverseArrayInPlace(array) {
+//     for(i = array.length - 1; i < array.length; i--) {
+//         array.push(array.shift());
+//         console.log(array);
+//     }
+//     return array;
+// }
+
+// function reverseArrayInPlace(array) {
+//     let stop = array.length;
+//     for(i = 0; i < stop; i++) {
+//         array.push(array.shift());
+//         console.log(array);
+//     }
+//     return array;
+// }
+
+// function reverseArrayInPlace(array) {
+//     let stop = array.length;
+//     for(i = 0; i < stop; i++) {
+//         array.unshift(array.pop());
+//         console.log(array);
+//     }
+//     return array;
+// }
 
 function reverseArrayInPlace(array) {
-    for(let element of array) {
-        let first;
-        first = array.shift();
-        console.log(first);
-        array.push(first);
-        console.log(array);
+    let median = Math.floor(array.length / 2);
+    for(let i = 0; i < median; i++) {
+        let old = array[(array.length - 1) - i];
+        // console.log(old, array.length);
+        array.splice((array.length - 1) - i, 1, array[i]);
+        // Grabs the value of 'array[i]', need just the index numeral
+        // array.splice(array[i], 1, old);
+        array.splice(i, 1, old);
+        // console.log(array);
     }
     return array;
 }
