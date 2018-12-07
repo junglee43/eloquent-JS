@@ -229,7 +229,6 @@ console.log(sum(range(1, 10)));
 
 /*  Reversing an array
 Arrays have a reverse method that changes the array by inverting the order in which its elements appear. For this exercise, write two functions, reverseArray and reverseArrayInPlace. The first, reverseArray, takes an array as argument and produces a new array that has the same elements in the inverse order. The second, reverseArrayInPlace, does what the reverse method does: it modifies the array given as argument by reversing its elements. Neither may use the standard reverse method.
-    Thinking back to the notes about side effects and pure functions in the previous chapter, which variant do you expect to be useful in more situations? Which one runs faster?
 */
 
 function reverseArray(array) {
@@ -238,6 +237,15 @@ function reverseArray(array) {
         newArray.push(array[i]);
     }
     return newArray;
+}
+
+// Solution
+function reverseArray(array) {
+    let output = [];
+    for (let i = array.length - 1; i >= 0; i--) {
+        output.push(array[i]);
+    }
+    return output;
 }
 
 // function reverseArrayInPlace(array) {
@@ -286,3 +294,24 @@ function reverseArrayInPlace(array) {
     }
     return array;
 }
+
+// Solution
+function reverseArrayInPlace(array) {
+    for (let i = 0; i < Math.floor(array.length / 2); i++) {
+        let old = array[i];
+        array[i] = array[array.length - 1 - i];
+        array[array.length - 1 - i] = old;
+    }
+    return array;
+}
+/*
+  Thinking back to the notes about side effects and pure functions in the previous chapter, which variant do you expect to be useful in more situations? Which one runs faster?
+*/
+// 1. I'm not sure I understand the question at all, they both return a new value. The 1st returns a new array and the 2nd returns a reordered array. Where is the side effect in these functions? I guess one side effect I can see is that your generating a new value that's somehow related to the old array in the 1st version, and depending on why your reversing the array you'll have to carry or remember the connection between them or have the original somewhere in memory space.
+
+// 2. I have no idea which would be faster, the 1st creates a new array and just pushes the values in whereas the 2nd performs some calculations... I'm thinking the 1st will be faster.
+
+/* Lists
+   Write a function arrayToList that builds up a list structure like the one shown when given [1, 2, 3] as argument. Also write a listToArray function that produces an array from a list. Then add a helper function prepend, which takes an element and a list and creates a new list that adds the element to the front of the input list, and nth, which takes a list and a number and returns the element at the given position in the list (with zero referring to the first element) or undefined when there is no such element.
+   If you haven’t already, also write a recursive version of nth.
+*/
