@@ -281,6 +281,7 @@ function reverseArray(array) {
 //     return array;
 // }
 
+// Final
 function reverseArrayInPlace(array) {
     let median = Math.floor(array.length / 2);
     for(let i = 0; i < median; i++) {
@@ -312,7 +313,13 @@ function reverseArrayInPlace(array) {
 // 2. I have no idea which would be faster, the 1st creates a new array and just pushes the values in whereas the 2nd performs some calculations... I'm thinking the 1st will be faster.
 
 /* Lists
-   Write a function arrayToList that builds up a list structure like the one shown when given [1, 2, 3] as argument. Also write a listToArray function that produces an array from a list. Then add a helper function prepend, which takes an element and a list and creates a new list that adds the element to the front of the input list, and nth, which takes a list and a number and returns the element at the given position in the list (with zero referring to the first element) or undefined when there is no such element.
+1. Write a function arrayToList that builds up a list structure like the one shown when given [1, 2, 3] as argument.
+
+2. Also write a listToArray function that produces an array from a list.
+
+3. Then add a helper function prepend, which takes an element and a list and creates a new list that adds the element to the front of the input list,
+
+4. and nth, which takes a list and a number and returns the element at the given position in the list (with zero referring to the first element) or undefined when there is no such element.
    If you haven’t already, also write a recursive version of nth.
 */
 
@@ -326,6 +333,7 @@ function arrayToList(array) {
     return list;
 }
 
+// Final
 function arrayToList(array) {
     let list = {value: '',
                 rest: ''};
@@ -338,4 +346,30 @@ function arrayToList(array) {
         }
     }
     return list;
+}
+
+// Uncaught TypeError: list is not iterable
+function listToArray(list) {
+    let array = [];
+    for(let item of list) {
+        array.push[item];
+    }
+    return array;
+}
+
+function listToArray(list) {
+    let array = [], a = keys(list);
+    while(list[a[0]] !== null || list[a[0]] !== '') {
+        anItem = list[a[0]];
+        console.log(anItem);
+    }
+    return anItem;
+}
+
+function listToArray(list) {
+    let array = []; names = keys(list);
+    let anItem = names[0];
+    //console.log(anItem);
+    let value = list[anItem];
+    //console.log(value);
 }
