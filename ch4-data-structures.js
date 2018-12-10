@@ -373,3 +373,44 @@ function listToArray(list) {
     let value = list[anItem];
     //console.log(value);
 }
+
+function listToArray(list) {
+    let array = [], keyArray = keys(list);
+    for(let i = 0; i < keyArray.length; i++) {
+        if(typeof(list[keyArray[i]]) !== 'object') {
+            console.log(i + ' if');
+            array.push(list[keyArray[i]]);
+        } else if(typeof(list[keyArray[i] == 'object'])) {
+            console.log(i + 'else if');
+            listToArray(list[keyArray[i]]);
+        }
+        return array;
+    }
+}
+
+function listToArray(list) {
+    let array = [], keyArray = keys(list);
+    for(let i = 0; i < keyArray.length; i++) {
+        if(typeof(list[keyArray[i]]) !== 'object') {
+            console.log(i + ' if');
+            array.push(list[keyArray[i]]);
+        } else {
+            console.log(i + 'else if');
+            listToArray(list[keyArray[i]]);
+        }
+        return array;
+    }
+}
+
+function listToArray(list) {
+    let array = [], keyArray = keys(list);
+    for(let i = 0; i < keyArray.length; i++) {
+        let item = list[keyArray[i]];
+        if(typeof(item) == 'object') {
+            listToArray(item);
+        } else {
+            array.push(item);
+        }
+        return array;
+    }
+}
