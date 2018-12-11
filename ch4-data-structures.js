@@ -414,3 +414,44 @@ function listToArray(list) {
         return array;
     }
 }
+
+function listToArray(list) {
+    let array = [], nextItem = list.rest;
+    //console.log(list.value);
+    array.push(list.value);
+    if(list.rest !== null) {
+        console.log(nextItem + list.value);
+        listToArray(nextItem);
+        return array;
+    }
+    return array;
+}
+
+// With a little help from my friends:
+// https://codeburst.io/js-data-structures-linked-list-3ed4d63e6571
+function listToArray(list) {
+    let array = [], nextItem = list.rest;
+    while(nextItem) {
+        array.push(list.value);
+        console.log(list.value);
+        // nextItem =+ '.rest';
+
+        console.log(nextItem);
+    }
+    return array;
+}
+
+function listToArray(list) {
+    let array = [];
+    for(value in list) {
+        array.push(value);
+        for(rest in list) {
+            listToArray(rest);
+        }
+    }
+    return array;
+}
+
+// Main issue is that I don't know how to traverse the list into the next level
+// Previous code can only call the list at the same level that it's currently in.
+// How do I move through the nested list?
