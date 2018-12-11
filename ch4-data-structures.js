@@ -401,7 +401,6 @@ function listToArray(list) {
         return array;
     }
 }
-
 function listToArray(list) {
     let array = [], keyArray = keys(list);
     for(let i = 0; i < keyArray.length; i++) {
@@ -455,3 +454,195 @@ function listToArray(list) {
 // Main issue is that I don't know how to traverse the list into the next level
 // Previous code can only call the list at the same level that it's currently in.
 // How do I move through the nested list?
+
+function listToArray(list) {
+    let array = [], nextItem;
+    array.push(list.value);
+    nextItem = list.rest;
+    console.log(array, nextItem);
+    if(list.value !== null) {
+        listToArray(nextItem);
+    }
+    return console.log(array);
+}
+
+//     > listToArray(aList);
+// [ 'a' ] { value: 'b', rest: { value: 'c', rest: null } }
+// [ 'b' ] { value: 'c', rest: null }
+// [ 'c' ] null
+// TypeError: Cannot read property 'value' of null
+// at listToArray (repl:3:21)
+// at listToArray (repl:7:9)
+// at listToArray (repl:7:9)
+// at listToArray (repl:7:9)
+
+
+function listToArray(list) {
+    let array = [], nextItem;
+    if(list.value !== null) {
+        array.push(list.value);
+        nextItem = list.rest;
+        listToArray(nextItem);
+        console.log(array, nextItem);
+    }
+    return array;
+}
+
+// listToArray(aList);
+// TypeError: Cannot read property 'value' of null
+// at listToArray (repl:3:13)
+// at listToArray (repl:6:9)
+// at listToArray (repl:6:9)
+// at listToArray (repl:6:9)
+
+
+function listToArray(list) {
+    let array = [], nextItem;
+    while(list.value !== null) {
+        array.push(list.value);
+        nextItem = list.rest;
+        listToArray(nextItem);
+        console.log(array, nextItem);
+    }
+    return array;
+}
+
+// ReferenceError: Invalid left-hand side in assignment
+// at new Script (vm.js:79:7)
+// at Object.createScript (vm.js:251:10)
+// at REPLServer.defaultEval (repl.js:268:21)
+// at bound (domain.js:396:14)
+// at REPLServer.runBound [as eval] (domain.js:409:12)
+// at REPLServer.onLine (repl.js:642:10)
+// at REPLServer.emit (events.js:187:15)
+// at REPLServer.EventEmitter.emit (domain.js:442:20)
+// at REPLServer.Interface._onLine (readline.js:290:10)
+// at REPLServer.Interface._line (readline.js:638:8)
+//     > null == false;
+// false
+//     > null == true;
+// false
+
+
+// Previous attempt using 'for' loops over the list
+function listToArray(list) {
+    let array = [], nextItem;
+    for(list.value in list) {
+        array.push(list.value);
+        nextItem = list.rest;
+        for(list.rest in list) {
+            listToArray(nextItem);
+        }
+    }
+    return array;
+}
+// aList;
+// { value: 'a',
+//   rest: { value: 'b', rest: { value: 'c', rest: null } } }
+//     > listToArray(aList);
+// [ 'value', 'rest' ]
+//     > aList;
+// { value: 'rest', rest: 'rest' }
+
+function listToArray(list) {
+    let array = [], nextItem;
+    while(list.rest !== null) {
+        array.push(list.value);
+        nextItem = list.rest;
+        listToArray(nextItem);
+        console.log(array, nextItem);
+    }
+    return array;
+}
+
+// > listToArray(aList);
+// [ 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+// [ 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b' ] { value: 'c', rest: null }
+
+function listToArray(list) {
+    let array = [], nextItem;
+    if(list.rest !== null) {
+        array.push(list.value);
+        nextItem = list.rest;
+        listToArray(nextItem);
+        console.log(array, nextItem);
+    }
+    return array;
+}
+// listToArray(aList);
+// [ 'b' ] { value: 'c', rest: null }
+// [ 'a' ] { value: 'b', rest: { value: 'c', rest: null } }
+// [ 'a' ]
+
+let array = [];
+function listToArray(list) {
+    let nextItem;
+    if(list.value != false) {
+        array.push(list.value);
+        nextItem = list.rest;
+        console.log(array, nextItem);
+
+        if(list.rest !== null) {
+            listToArray(nextItem);
+        }
+    }
+    return array;
+}
+
+//     > let array = [];
+// undefined
+//     > function listToArray(list) {
+//         ...     let nextItem;
+//         ...     if(list.value != false) {
+//             .....         array.push(list.value);
+//             .....         nextItem = list.rest;
+//             .....         console.log(array, nextItem);
+//             .....
+//                 ...         if(list.rest !== null) {
+//                     ...             listToArray(nextItem);
+//                     ...         }
+//             ...     }
+//         ...     return array;
+//         ... }
+// undefined
+//     > aList
+// { value: 'a',
+//   rest: { value: 'b', rest: { value: 'c', rest: null } } }
+//     > listToArray(aList);
+// [ 'a' ] { value: 'b', rest: { value: 'c', rest: null } }
+// [ 'a', 'b' ] { value: 'c', rest: null }
+// [ 'a', 'b', 'c' ] null
+// [ 'a', 'b', 'c' ]
+// It's because I'm calling the function again and each time I call the function the array is set to empty again, it's initialized at the beginning of the function.
+// Moving the array to global var has fixed the problem, but there's got to be a better solution.
+
+// Not sure why below is working, but not working when return is resultArray,
+// which is what I had expected to work.
+function listToArray(list) {
+    let resultArray = [], nextItem;
+    if(list.value != false) {
+        let array = [];
+        array.push(list.value);
+        resultArray = resultArray.concat(array);
+        nextItem = list.rest;
+        console.log(array, resultArray, nextItem);
+
+        if(list.rest !== null) {
+            listToArray(nextItem);
+        }
+    }
+    return array;
+}
