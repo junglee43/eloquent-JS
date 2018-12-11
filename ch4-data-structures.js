@@ -631,17 +631,35 @@ function listToArray(list) {
 
 // Not sure why below is working, but not working when return is resultArray,
 // which is what I had expected to work.
+// It's actually very broken and not working. Somehow that's a relief, since it really shouldnt have been working. The return array is the same [a,b,c] even with a completely different list.
 function listToArray(list) {
-    let resultArray = [], nextItem;
+    let array = [], nextItem;
     if(list.value != false) {
         let array = [];
-        array.push(list.value);
-        resultArray = resultArray.concat(array);
+        // array.push(list.value);
+        resultArray = resultArray.concat(array.push(list.value));
         nextItem = list.rest;
         console.log(array, resultArray, nextItem);
 
         if(list.rest !== null) {
             listToArray(nextItem);
+        }
+        return resultArray;
+    }
+    return resultArray;
+}
+
+// Stupid and obvious, but was convinced there was an different method of using closures behavior
+function listToArray(list, array) {
+    array = array || [];
+    let nextItem;
+    if(list.value != false) {
+        array.push(list.value);
+        nextItem = list.rest;
+        console.log(array, nextItem);
+
+        if(list.rest !== null) {
+            listToArray(nextItem, array);
         }
     }
     return array;
