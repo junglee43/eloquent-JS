@@ -673,13 +673,54 @@ function prepend(element, list) {
     return newList;
 }
 
+// Something very wrong on this one.
 function nth(list, num) {
-    if(0 == num) {
+    let target = 0, current = list.rest;
+    if(target == num) {
+        return list.value;
+    } else if(current !== null) {
+        while(target < num) {
+            nth(current, num);
+            target += 1;
+        }
+        return current.value;
+    } else if(current == null){
+        return console.log('Out of range.');
+    }
+}
+
+function nth(list, num) {
+    let target = 0, current = list.rest;
+    if(target == num) {
+        return list.value;
+    } else if(current !== null) {
+        while(target < num) {
+            target += 1;
+            nth(current, num);
+        }
+        return current.value;
+    } else {
+        return console.log('Out of range.');
+    }
+}
+
+function nth(list, num) {
+    let target = 0, current = list, nextItem = list.rest;
+    if(target == num) {
+        return current.value;
+    } else {
+        console.log(nextItem, 'num: ' + num - 1);
+        nth(nextItem, num - 1);
+    }
+}
+
+// Working nth
+function nth(list, num) {
+    let target = 0, nextItem = list.rest;
+    if(target == num) {
         return list.value;
     } else {
-        for(i = 1; i < num; i++) {
-            current = list.rest;
-
-        }
+        // console.log(num - 1, nextItem, list.value);
+        return nth(nextItem, num - 1);
     }
 }
