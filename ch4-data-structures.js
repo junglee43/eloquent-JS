@@ -649,18 +649,37 @@ function listToArray(list) {
     return resultArray;
 }
 
-// Stupid and obvious, but was convinced there was an different method of using closures behavior
+// Stupid and obvious, but was convinced there was an different method of using closures behavior to get this done.
 function listToArray(list, array) {
     array = array || [];
     let nextItem;
     if(list.value != false) {
         array.push(list.value);
         nextItem = list.rest;
-        console.log(array, nextItem);
-
+        // console.log(array, nextItem);
         if(list.rest !== null) {
             listToArray(nextItem, array);
         }
     }
     return array;
+}
+
+// Works
+function prepend(element, list) {
+    let  newList = { value: '',
+                     rest: ''};
+    newList.value = element;
+    newList.rest = list;
+    return newList;
+}
+
+function nth(list, num) {
+    if(0 == num) {
+        return list.value;
+    } else {
+        for(i = 1; i < num; i++) {
+            current = list.rest;
+
+        }
+    }
 }
