@@ -348,6 +348,15 @@ function arrayToList(array) {
     return list;
 }
 
+// Solution
+function arrayToList(array) {
+    let list = null;
+    for (let i = array.length - 1; i >= 0; i--) {
+        list = {value: array[i], rest: list};
+    }
+    return list;
+}
+
 // Uncaught TypeError: list is not iterable
 function listToArray(list) {
     let array = [];
@@ -650,6 +659,7 @@ function listToArray(list) {
 }
 
 // Stupid and obvious, but was convinced there was an different method of using closures behavior to get this done.
+// Final
 function listToArray(list, array) {
     array = array || [];
     let nextItem;
@@ -664,7 +674,16 @@ function listToArray(list, array) {
     return array;
 }
 
-// Works
+// Solution
+function listToArray(list) {
+    let array = [];
+    for (let node = list; node; node = node.rest) {
+        array.push(node.value);
+    }
+    return array;
+}
+
+// Final
 function prepend(element, list) {
     let  newList = { value: '',
                      rest: ''};
@@ -672,6 +691,12 @@ function prepend(element, list) {
     newList.rest = list;
     return newList;
 }
+
+// Solution
+function prepend(value, list) {
+    return {value, rest: list};
+}
+
 
 // Something very wrong on this one.
 function nth(list, num) {
@@ -714,7 +739,7 @@ function nth(list, num) {
     }
 }
 
-// Working nth
+// Final
 function nth(list, num) {
     let target = 0, nextItem = list.rest;
     if(target == num) {
@@ -722,5 +747,31 @@ function nth(list, num) {
     } else {
         // console.log(num - 1, nextItem, list.value);
         return nth(nextItem, num - 1);
+    }
+}
+
+// Solution
+function nth(list, n) {
+    if (!list) return undefined;
+    else if (n == 0) return list.value;
+    else return nth(list.rest, n - 1);
+}
+
+// DeepEqual
+// Write a function deepEqual that takes two values and returns true only if they are the same value or are objects with the same properties, where the values of the properties are equal when compared with a recursive call to deepEqual.
+//     To find out whether values should be compared directly (use the === operator for that) or have their properties compared, you can use the typeof operator. If it produces "object" for both values, you should do a deep comparison. But you have to take one silly exception into account: because of a historical accident, typeof null also produces "object".
+//     The Object.keys function will be useful when you need to go over the prop- erties of objects to compare them.
+
+// Final
+function deepEqual(a, b) {
+    if(a === b) {
+        return true;
+    } else if(typeof(a) == 'object' && typeof(b) == 'object') {
+        aKeys = Object.keys(a), bKeys = Object.keys(b);
+        for(let i = 0; i < aKeys.length; i++) {
+            return deepEqual(aKeys[i], bKeys[i]);
+        }
+    } else {
+        return false;
     }
 }
