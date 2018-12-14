@@ -769,7 +769,8 @@ function deepEqual(a, b) {
     } else if(typeof(a) == 'object' && typeof(b) == 'object') {
         aKeys = Object.keys(a), bKeys = Object.keys(b);
         for(let i = 0; i < aKeys.length; i++) {
-            return deepEqual(aKeys[i], bKeys[i]);
+            console.log(a[aKeys[i]], b[bKeys[i]]);
+            return deepEqual(a[aKeys[i]], b[bKeys[i]]);
         }
     } else {
         return false;
