@@ -128,3 +128,27 @@ function characterCount(script) {
 console.log(SCRIPTS.reduce((a, b) => {
     return characterCount(a) < characterCount(b) ? b : a;
 }));
+
+// Find the average year of origin for living and dead scripts
+function average(array) {
+    return array.reduce((a, b) => a + b) / array.length;
+}
+
+console.log(Math.round(average(
+    SCRIPTS.filter(s => s.living).map(s => s.year))));
+console.log(Math.round(average(
+    SCRIPTS.filter(s => !s.living).map(s => s.year))));
+
+// Strings and character codes
+function characterScript(code) {
+    for(let script of SCRIPTS) {
+        if(script.ranges.some(([from, to]) => {
+            return code >= from && code < to;
+        })) {
+            return script;
+        }
+    }
+    return null;
+}
+
+console.log(characterScript(121));
