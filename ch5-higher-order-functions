@@ -152,3 +152,49 @@ function characterScript(code) {
 }
 
 console.log(characterScript(121));
+
+// Count characters that belong to each script
+function countBy(items, groupName) {
+    let counts = [];
+    for(let item of items) {
+        let name = groupName(item); // Where is this groupName function coming from?
+        let known = counts.findIndex(c => c.name == name); // Not sure what's happening here either. Where is 'c'? Is it merely the name of each 'Item'?
+        console.log(name);
+        if(known == -1) {
+            counts.push({name, count: 1});
+        } else {
+            counts[known].count++;
+        }
+    }
+    return counts;
+}
+
+console.log(countBy([1, 2, 3, 4, 5], n => n > 2)); // Ok, groupName is an abstraction for a function that tests a condition or acts like a filter.
+
+// Using countBy, we can write a function that tells us which scripts are used in a piece of text
+function textScripts(text) {
+    let scripts = countBy(text, char => {
+        let script = characterScript(char.codePointAt(0));
+        return script ? script.name : 'none';
+    }).filter(({name}) => name != 'none');
+
+    let total = scripts.reduce((n, {count}) => n + count, 0);
+    if(total == 0) return 'No scripts found';
+
+    return scripts.map(({name, count}) => {
+        return `${Math.round(count * 100 / total)}% ${name}`;
+    }).join(', ');
+}
+
+/*****
+Excercises
+*****/
+
+/*
+Flattening
+Use the reduce method in combination with the concat method to “flatten” an array of arrays into a single array that has all the elements of the original arrays.
+*/
+
+function flattenArray(array) {
+    array.reduce()
+}
