@@ -152,3 +152,206 @@ function characterScript(code) {
 }
 
 console.log(characterScript(121));
+
+// Count characters that belong to each script
+function countBy(items, groupName) {
+    let counts = [];
+    for(let item of items) {
+        let name = groupName(item); // Where is this groupName function coming from?
+        let known = counts.findIndex(c => c.name == name); // Not sure what's happening here either. Where is 'c'? Is it merely the name of each 'Item'?
+        console.log(name);
+        if(known == -1) {
+            counts.push({name, count: 1});
+        } else {
+            counts[known].count++;
+        }
+    }
+    return counts;
+}
+
+console.log(countBy([1, 2, 3, 4, 5], n => n > 2)); // Ok, groupName is an abstraction for a function that tests a condition or acts like a filter.
+
+// Using countBy, we can write a function that tells us which scripts are used in a piece of text
+function textScripts(text) {
+    let scripts = countBy(text, char => {
+        let script = characterScript(char.codePointAt(0));
+        return script ? script.name : 'none';
+    }).filter(({name}) => name != 'none');
+
+    let total = scripts.reduce((n, {count}) => n + count, 0);
+    if(total == 0) return 'No scripts found';
+
+    return scripts.map(({name, count}) => {
+        return `${Math.round(count * 100 / total)}% ${name}`;
+    }).join(', ');
+}
+
+/*****
+Excercises
+*****/
+
+/*
+Flattening
+Use the reduce method in combination with the concat method to “flatten” an array of arrays into a single array that has all the elements of the original arrays.
+*/
+
+let array1 = [['a', 'b', 'c'], ['d', 'e'], ['f', 'g', 'h']];
+array1.reduce(item => {
+    return item = a.concat(b);
+});
+
+function flattenArray(array) {
+    array.reduce((a, b) => {
+        a += a.concat(b);
+        console.log(a);
+    });
+}
+
+
+
+/*****
+Interlude
+*****/
+
+// I'm not understanding this on some fundamental level. Need to get into it more.
+// http://reactivex.io/learnrx/
+
+// Projecting Arrays
+// Applying a function to a value and creating a new value is called a projection. To project one array into another, we apply a projection function to each item in the array and collect the results in a new array.
+
+// Exercise 3: Project an array of videos into an array of {id,title} pairs using forEach()
+// For each video, add a projected {id, title} pair to the videoAndTitlePairs array.
+function project() {
+	var newReleases = [
+		{
+			"id": 70111470,
+			"title": "Die Hard",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [4.0],
+			"bookmark": []
+		},
+		{
+			"id": 654356453,
+			"title": "Bad Boys",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [5.0],
+			"bookmark": [{ id: 432534, time: 65876586 }]
+		},
+		{
+			"id": 65432445,
+			"title": "The Chamber",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [4.0],
+			"bookmark": []
+		},
+		{
+			"id": 675465,
+			"title": "Fracture",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [5.0],
+			"bookmark": [{ id: 432534, time: 65876586 }]
+		}
+	],
+	videoAndTitlePairs = [];
+
+	// ------------ INSERT CODE HERE! -----------------------------------
+	// Use forEach function to accumulate {id, title} pairs from each video.
+	// Put the results into the videoAndTitlePairs array using the Array's
+	// push() method. Example: videoAndTitlePairs.push(newItem);
+	// ------------ INSERT CODE HERE! -----------------------------------
+
+    // newReleases.forEach(function(video) {
+    //     videoAndTitlePairs.push({'id': newReleases['id'], 'name': newReleases['name']});
+    // });
+    // This returns:
+    // [ { id: undefined, name: undefined },
+    //   { id: undefined, name: undefined },
+    //   { id: undefined, name: undefined },
+    //   { id: undefined, name: undefined } ]
+
+    newReleases.forEach(function(video) {
+	videoAndTitlePairs.push({ id: video.id, title: video.title });
+    });
+        return videoAndTitlePairs;
+}
+
+// All array projections share two operations in common:
+// Traverse the source array
+// Add each item's projected value to a new array
+// Why not abstract away how these operations are carried out?
+
+// Exercise 4: Implement map()
+// To make projections easier, let's add a map() function to the Array type. Map accepts the projection function to be applied to each item in the source array, and returns the projected array.
+
+Array.prototype.map = function(projectionFunction) {
+    var results = [];
+    this.forEach(function(itemInArray) {
+	results.push(projectionFunction(itemInArray));
+    });
+    return results;
+};
+
+// JSON.stringify([1,2,3].map(function(x) { return x + 1; })) === '[2,3,4]'
+
+// Exercise 5: Use map() to project an array of videos into an array of {id,title} pairs
+// Let's repeat the exercise of collecting {id, title} pairs for each video in the newReleases array, but this time we'll use our map function.
+function() {
+	var newReleases = [
+		{
+			"id": 70111470,
+			"title": "Die Hard",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [4.0],
+			"bookmark": []
+		},
+		{
+			"id": 654356453,
+			"title": "Bad Boys",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [5.0],
+			"bookmark": [{ id: 432534, time: 65876586 }]
+		},
+		{
+			"id": 65432445,
+			"title": "The Chamber",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [4.0],
+			"bookmark": []
+		},
+		{
+			"id": 675465,
+			"title": "Fracture",
+			"boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+			"uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+			"rating": [5.0],
+			"bookmark": [{ id: 432534, time: 65876586 }]
+		}
+	];
+    // ------------ INSERT CODE HERE! -----------------------------------
+    // Use map function to accumulate {id, title} pairs from each video.
+
+    // return newReleases.map(video => {
+    //     let newVideoItem = {};
+    //     newVideoItem = {id: video.id, title: video.title};
+    //     return newVideoItem;
+    // });
+
+    return newReleases.map(function(video) { return { id: video.id, title: video.title }; });
+
+    // finish this expression!
+    // ------------ INSERT CODE HERE! -----------------------------------
+    }
+
+// Notice that map allows us to specify what projection we want to apply to an array, but hides how the operation is carried out.
+
+// Filtering Arrays
+// Like projection, filtering an array is also a very common operation. To filter an array we apply a test to each item in the array and collect the items that pass into a new array.
+// Exercise 6: Use forEach() to collect only those videos with a rating of 5.0
+// Use forEach() to loop through the videos in the newReleases array and, if a video has a rating of 5.0, add it to the videos array.
