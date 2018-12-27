@@ -238,11 +238,45 @@ function loop(value, test, update, body) {
     }
 }
 
+// Solution
 function loop(value, test, update, body) {
     for(value; test(value); value = update(value)) {
         body(value);
     }
 }
+
+/*
+Everything
+Analogous to the some method, arrays also have an every method. This one returns true when the given function returns true for every element in the array. In a way, some is a version of the || operator that acts on arrays, and every is like the && operator.
+
+Implement every as a function that takes an array and a predicate function as parameters. Write two versions, one using a loop and one using the some method.
+*/
+
+// Not sure why the below code is not working as it should. One issue is that the results value is being mutated...
+function every(array, predicateFunction) {
+    for(let i = 0; i < array.length; i++) {
+        let result = '';
+        if(predicateFunction(array[i]) === false) {
+            return result = false;
+        } else {
+            return result = true;
+        }
+    }
+}
+
+// Same logic but different point of return / exit for the true condition. Previously it was returning true / false after looping through any array element. Now it returns true only after end of the loop. Subtle shit.
+function every(array, predicateFunction) {
+    let result = 'flag';
+    for(let i = 0; i < array.length; i++) {
+        if(predicateFunction(array[i]) === false) {
+            return result = false;
+        } else {
+            result = true;
+        }
+    }
+    return result;
+}
+
 
 /*****
 Interlude
