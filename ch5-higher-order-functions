@@ -266,17 +266,42 @@ function every(array, predicateFunction) {
 
 // Same logic but different point of return / exit for the true condition. Previously it was returning true / false after looping through any array element. Now it returns true only after end of the loop. Subtle shit.
 function every(array, predicateFunction) {
-    let result = 'flag';
+    let result = true;
     for(let i = 0; i < array.length; i++) {
         if(predicateFunction(array[i]) === false) {
             return result = false;
         } else {
-            result = true;
+            result;
         }
     }
     return result;
 }
 
+// Solution
+function every(array, predicate) {
+    for (let element of array) {
+        if (!predicate(element)) return false;
+    }
+    return true;
+}
+
+// This is obviously wrong, if(array.some(prdicate)) is true, every could also be true of false
+function every(array, predicate) {
+    if(!array.some(predicate)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// Solution
+function every2(array, predicate) {
+    return !array.some(element => console.log(!predicate(element)));
+}
+
+function every2(array, predicate) {
+    return array.some(element => console.log(predicate(element)));
+}
 
 /*****
 Interlude
