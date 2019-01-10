@@ -299,8 +299,28 @@ function every2(array, predicate) {
     return !array.some(element => console.log(!predicate(element)));
 }
 
+// Could not solve this problem. This is using some to check predicate for each element, but this requires some knowledge of how some function works internally, I thought that it only worked for arrays and did not think it could be used to loop over each element. Also how does it hold the value if last element happens to be true/false?
 function every2(array, predicate) {
     return array.some(element => console.log(predicate(element)));
+}
+
+// Returns:
+// every2([2, 4, 16], n => n < 10);
+// true
+// true
+// false
+// false
+// So somehow some array iterates over the given array.
+
+// Dominant writing direction
+// Write a function that computes the dominant writing direction in a string of text. Remember that each script object has a direction property that can be "ltr" (left to right), "rtl" (right to left), or "ttb" (top to bottom).
+//     The dominant direction is the direction of a majority of the characters that have a script associated with them. The characterScript and countBy func- tions defined earlier in the chapter are probably useful here.
+
+function writingDirection(text) {
+    let textArray = [];
+    for (let char of text) {
+        textArray.push()
+    }
 }
 
 /*****
