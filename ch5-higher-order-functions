@@ -328,8 +328,8 @@ function writingDirection(text) {
         let script = characterScript(char.codePointAt(0));
         return script ? script.name : "none";
     });
-
-     scripts.reduce((a, b) => {
-        return scripts[a].count > scripts[b].count ? scripts[a].count : scripts[b].count
-    });
+    return scripts.reduce((acc, b) =>  {
+        acc.count > b.count ? acc.count : b.count;
+        return `${acc.name + ", " + acc.count}`;
+        });
 }
