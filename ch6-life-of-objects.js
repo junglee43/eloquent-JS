@@ -159,6 +159,96 @@ class Group {
         }
         return group;
     }
+    [Symbol.iterator]() {
+        return new GroupIterator(this);
+    }
 }
 
 // Iterable Groups
+class GroupIterator {
+    constructor(group) {
+        this.group = group;
+        this.currentPosition = 0;
+        // this.currentItem = group[currentPosition];
+    }
+
+    next() {
+        if (this.currentPostiion >= this.group.length) {
+            return {done: true};
+        } else {
+            let result = {member: this.group[this.currentPosition], done: false};
+            // this.currentPosition++;
+            console.log(this.group[this.currentPosition]);
+            return result;
+        }
+    }
+}
+
+for (let element of Group.from(["a", "b", "c"])) {
+    console.log(element);
+}
+
+// Not sure why my version is not working. It's almost identical to the 'solution' except that the 'this.group' does not call an additonal method 'this.group.members' but that shouldn't be necessary and I've no idea where that method is defined or what it represents.
+// Solution
+class Group {
+    constructor() {
+        this.members = [];
+    }
+
+    add(value) {
+        if (!this.has(value)) {
+            this.members.push(value);
+        }
+    }
+
+    delete(value) {
+        this.members = this.members.filter(v => v !== value);
+    }
+
+    has(value) {
+        return this.members.includes(value);
+    }
+
+    static from(collection) {
+        let group = new Group;
+        for (let value of collection) {
+            group.add(value);
+        }
+        return group;
+    }
+
+    [Symbol.iterator]() {
+        return new GroupIterator(this);
+    }
+}
+
+class GroupIterator {
+    constructor(group) {
+        this.group = group;
+        this.position = 0;
+    }
+
+    next() {
+        if (this.position >= this.group.members.length) {
+            return {done: true};
+        } else {
+            let result = {value: this.group.members[this.position],
+                          done: false};
+            this.position++;
+            return result;
+        }
+    }
+}
+
+for (let value of Group.from(["a", "b", "c"])) {
+    console.log(value);
+}
+// → a
+// → b
+// → c
+
+// Borrowing a method
+let map = {one: true, two: true, hasOwnProperty: true};
+
+console.log(Object.prototype.hasOwnProperty.call(map, "one"));
+// → true
